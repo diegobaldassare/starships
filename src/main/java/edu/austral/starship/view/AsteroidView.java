@@ -1,10 +1,11 @@
 package edu.austral.starship.view;
 
 import edu.austral.starship.base.framework.ImageLoader;
-import edu.austral.starship.gameUtils.Constants;
+import edu.austral.starship.base.vector.Vector2;
+import edu.austral.starship.utils.Constants;
 import edu.austral.starship.model.builder.asteroids.Asteroid;
 import edu.austral.starship.model.GameObject;
-import edu.austral.starship.view.configuration.AsteroidConfiguration;
+import processing.core.PGraphics;
 import processing.core.PImage;
 
 import java.awt.*;
@@ -32,7 +33,7 @@ public class AsteroidView extends GameObjectView {
 
     @Override
     public void setup(ImageLoader imageLoader) {
-        super.image = imageLoader.load(Constants.IMAGES_PATH + "asteroid-" + color + ".png");
+        super.image = imageLoader.load(Constants.RESOURCES_PATH + "/images/asteroid-" + color + ".png");
         super.image.resize(model.getWidth(), model.getHeight());
     }
 
@@ -52,5 +53,17 @@ public class AsteroidView extends GameObjectView {
     @Override
     public GameObject getModel() {
         return model;
+    }
+
+    @Override
+    public void draw(PGraphics graphics) {
+        super.draw(graphics);
+
+//        graphics.fill(50, 205, 50);
+//        final Vector2 v = getModel().getPosition().add(Vector2.vector(
+//                - (float) Math.cos(getModel().getDirection().angle()) * model.getWidth(),
+//                - (float) Math.sin(getModel().getDirection().angle()) * model.getHeight()));
+//        graphics.rect(v.getX(),v.getY(), getModel().getLife() / getModel().getLife() * 50,10);
+//        graphics.noFill();
     }
 }

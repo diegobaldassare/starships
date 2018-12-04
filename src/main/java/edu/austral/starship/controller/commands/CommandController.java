@@ -2,7 +2,6 @@ package edu.austral.starship.controller.commands;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Invoker from the Command Pattern.
@@ -22,5 +21,9 @@ public class CommandController {
 
     public void addCommand(Integer keyCode, Command command) {
         commands.put(keyCode, command);
+    }
+
+    public Map<Integer, Command> getCommands() {
+        return commands;
     }
 }

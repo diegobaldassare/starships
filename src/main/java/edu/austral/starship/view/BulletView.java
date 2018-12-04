@@ -1,11 +1,9 @@
 package edu.austral.starship.view;
 
 import edu.austral.starship.base.framework.ImageLoader;
-import edu.austral.starship.gameUtils.Constants;
+import edu.austral.starship.utils.Constants;
 import edu.austral.starship.model.builder.bullets.Bullet;
 import edu.austral.starship.model.GameObject;
-import processing.core.PConstants;
-import processing.core.PGraphics;
 import processing.core.PImage;
 
 import java.awt.*;
@@ -30,7 +28,7 @@ public class BulletView extends GameObjectView {
 
     @Override
     public void setup(ImageLoader imageLoader) {
-        super.image = imageLoader.load(Constants.IMAGES_PATH + "bullet-" + color + ".png");
+        super.image = imageLoader.load(Constants.RESOURCES_PATH + "/images/bullet-" + color + ".png");
         super.image.resize(WIDTH, HEIGHT);
     }
 

@@ -24,20 +24,18 @@ public class PlayerConfiguration {
         player4.setManageableObject(new Starship());
         player5.setManageableObject(new Starship());
 
-        gameController.getGame().getPlayers().add(player1);
+        gameController.getModel().getPlayers().add(player1);
         if (quantity > 2) {
-            gameController.getGame().getPlayers().add(player2);
+            gameController.getModel().getPlayers().add(player2);
             if (quantity > 3) {
-                gameController.getGame().getPlayers().add(player3);
+                gameController.getModel().getPlayers().add(player3);
                 if (quantity > 4) {
-                    gameController.getGame().getPlayers().add(player4);
+                    gameController.getModel().getPlayers().add(player4);
                     if (quantity > 5) {
-                        gameController.getGame().getPlayers().add(player5);
+                        gameController.getModel().getPlayers().add(player5);
                     }
                 }
             }
         }
     }
-
-
 }

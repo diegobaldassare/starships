@@ -1,4 +1,4 @@
-package edu.austral.starship.gameUtils;
+package edu.austral.starship.utils;
 
 /**
  * General constants.
@@ -16,5 +16,7 @@ public class Constants {
     public static final int MAP_WIDTH = 1680;
     public static final int MAP_HEIGHT= 1050;
 
-    public static final String IMAGES_PATH = "/Users/diegobaldassare/projects/starships/src/main/resources/images/";
+    public static final String RESOURCES_PATH = "/Users/diegobaldassare/projects/starships/src/main/resources";
+
+    public static final long DEBOUNCE_TIME = 500;
 }

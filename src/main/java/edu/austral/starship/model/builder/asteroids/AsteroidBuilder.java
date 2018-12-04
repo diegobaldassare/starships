@@ -1,8 +1,7 @@
 package edu.austral.starship.model.builder.asteroids;
 
 import edu.austral.starship.base.vector.Vector2;
-import edu.austral.starship.gameUtils.Constants;
-import edu.austral.starship.view.AsteroidView;
+import edu.austral.starship.utils.Constants;
 
 /**
  * Builder Pattern optimized.

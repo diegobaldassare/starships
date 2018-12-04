@@ -1,9 +1,10 @@
 package edu.austral.starship.view;
 
 import edu.austral.starship.base.framework.ImageLoader;
-import edu.austral.starship.gameUtils.Constants;
+import edu.austral.starship.utils.Constants;
 import edu.austral.starship.model.GameObject;
 import edu.austral.starship.model.Starship;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 import java.awt.*;
@@ -27,7 +28,7 @@ public class StarshipView extends GameObjectView {
 
     @Override
     public void setup(ImageLoader imageLoader) {
-        super.image = imageLoader.load(Constants.IMAGES_PATH + "starship-" + color + ".png");
+        super.image = imageLoader.load(Constants.RESOURCES_PATH + "/images/starship-" + color + ".png");
         super.image.resize(WIDTH, HEIGHT);
     }
 
@@ -68,6 +69,22 @@ public class StarshipView extends GameObjectView {
     @Override
     public void draw(PGraphics graphics) {
         super.draw(graphics);
-        graphics.text("Life: " + model.getLife(), model.getPosition().getX(), model.getPosition().getY() + model.getHeight() + 1);
+        graphics.pushMatrix();
+        graphics.translate(getModel().getPosition().getX(), getModel().getPosition().getY());
+        graphics.rotate(getModel().getDirection().angle() + PConstants.PI / 2);
+        graphics.noStroke();
+        final float alignX = - 25;
+        final float alignY = 50;
+        final float life = (float) getModel().getLife() / Starship.getInitialLife();
+
+        graphics.fill(Color.GREEN.getRGB());
+        graphics.rect(alignX, alignY, life * Starship.getInitialLife(),10);
+
+        graphics.fill(Color.RED.getRGB());
+        graphics.rect(alignX + Starship.getInitialLife(), alignY, - (1 - life) * Starship.getInitialLife(),10);
+
+
+        graphics.noFill();
+        graphics.popMatrix();
     }
 }

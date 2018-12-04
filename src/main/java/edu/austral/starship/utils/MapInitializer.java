@@ -1,11 +1,9 @@
-package edu.austral.starship.gameUtils;
+package edu.austral.starship.utils;
 
 import edu.austral.starship.base.vector.Vector2;
-import edu.austral.starship.model.builder.asteroids.Asteroid;
 import edu.austral.starship.model.GameObject;
 import edu.austral.starship.model.Player;
 import edu.austral.starship.model.builder.bullets.Bullet;
-import edu.austral.starship.view.AsteroidView;
 
 import java.util.List;
 

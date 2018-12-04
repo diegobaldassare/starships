@@ -16,6 +16,7 @@ public class Starship extends ManageableObject implements Harmful {
     private static final int INITIAL_LIFE = 50;
     private static final int WIDTH = 92;
     private static final int HEIGHT = 81;
+    private String color;
 
     private Weapon current;
 
@@ -103,5 +104,13 @@ public class Starship extends ManageableObject implements Harmful {
     @Override
     public void accept(Helpful visitor) {
         visitor.help(this);
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public static int getInitialLife() {
+        return INITIAL_LIFE;
     }
 }

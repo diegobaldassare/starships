@@ -7,13 +7,13 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
 
 /**
  * Created by Diego Baldassare on 2018-10-28.
  */
 public abstract class GameObjectView extends View implements Collisionable<GameObjectView> {
+    //<T extends GameObjectView<T>>
+
 
     protected Shape shape;
     protected PImage image;

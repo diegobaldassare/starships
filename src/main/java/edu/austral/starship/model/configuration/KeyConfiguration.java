@@ -15,7 +15,7 @@ import java.util.List;
 public class KeyConfiguration {
 
     public static void loadCommands(GameController gameController, CommandController commandController) {
-        final List<Player> players = gameController.getGame().getPlayers();
+        final List<Player> players = gameController.getModel().getPlayers();
         final int n = players.size();
 
         //Player 1
@@ -47,6 +47,7 @@ public class KeyConfiguration {
                     commandController.addCommand(KeyEvent.VK_5, new MoveForwardCommand(players.get(3)));
                     commandController.addCommand(KeyEvent.VK_6, new RotateRightCommand(players.get(3)));
                     commandController.addCommand(KeyEvent.VK_7, new ShootCommand(players.get(3)));
+                    commandController.addCommand(KeyEvent.VK_T, new ChangeWeaponCommand(players.get(3)));
 
                     if (n > 4) {
                         //Player 5
@@ -54,11 +55,12 @@ public class KeyConfiguration {
                         commandController.addCommand(KeyEvent.VK_X, new MoveForwardCommand(players.get(3)));
                         commandController.addCommand(KeyEvent.VK_C, new RotateRightCommand(players.get(3)));
                         commandController.addCommand(KeyEvent.VK_SHIFT, new ShootCommand(players.get(3)));
+                        commandController.addCommand(KeyEvent.VK_V, new ChangeWeaponCommand(players.get(3)));
                     }
                 }
             }
         }
 
-        commandController.addCommand(KeyEvent.VK_SPACE, new PauseCommand(gameController.getGame()));
+        commandController.addCommand(KeyEvent.VK_SPACE, new PauseCommand(gameController.getModel()));
     }
 }

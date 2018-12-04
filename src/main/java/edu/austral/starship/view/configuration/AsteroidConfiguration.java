@@ -1,9 +1,7 @@
 package edu.austral.starship.view.configuration;
 
 import edu.austral.starship.base.framework.ImageLoader;
-import edu.austral.starship.gameUtils.Constants;
-import edu.austral.starship.view.View;
-import processing.core.PGraphics;
+import edu.austral.starship.utils.Constants;
 import processing.core.PImage;
 
 /**
@@ -15,7 +13,7 @@ public class AsteroidConfiguration {
 
 
     public void setup(ImageLoader imageLoader) {
-        asteroidImage = imageLoader.load(Constants.IMAGES_PATH + "asteroid-brown.png");
+        asteroidImage = imageLoader.load(Constants.RESOURCES_PATH + "/images/asteroid-brown.png");
     }
 
     public PImage getAsteroidImage() {

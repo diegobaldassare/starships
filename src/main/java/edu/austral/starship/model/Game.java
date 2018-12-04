@@ -1,16 +1,14 @@
 package edu.austral.starship.model;
 
-import edu.austral.starship.gameUtils.MapInitializer;
+import edu.austral.starship.model.strategy.LevelThree;
+import edu.austral.starship.utils.MapInitializer;
 import edu.austral.starship.model.builder.asteroids.Asteroid;
 import edu.austral.starship.model.builder.bullets.Bullet;
 import edu.austral.starship.model.repository.BulletsRepository;
 import edu.austral.starship.model.strategy.Level;
 import edu.austral.starship.model.strategy.LevelOne;
-import edu.austral.starship.model.strategy.LevelThree;
-import edu.austral.starship.model.strategy.LevelTwo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -48,8 +46,8 @@ public class Game extends Model {
         for (Player player : players) {
             gameObjects.add(player.getManageableObject());
         }
-
         gameObjects.addAll(asteroids);
+
     }
 
     @Override
@@ -106,10 +104,10 @@ public class Game extends Model {
         return gameObjects;
     }
 
-    public List<ManageableObject> getManegeableObjects() {
-        final List<ManageableObject> result = new ArrayList<>();
+    public List<Starship> getStarships() {
+        final List<Starship> result = new ArrayList<>();
         for (Player p : players) {
-            result.add(p.getManageableObject());
+            result.add((Starship) p.getManageableObject());
         }
         return result;
     }
