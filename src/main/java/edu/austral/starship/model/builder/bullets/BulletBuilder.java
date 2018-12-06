@@ -42,6 +42,7 @@ public abstract class BulletBuilder {
     public abstract void buildDamage();
 
     public void assignShooter(Shooter shooter) {
+        //Se dispara una distancia de 35 mas lejos porque sino la bala colsiona con el que esta disparando.
         bullet.setPosition(shooter.getPosition().add(Vector2.vector(
                 (float) Math.cos(shooter.getDirection().angle()) * (shooter.getWidth()),
                 (float) Math.sin(shooter.getDirection().angle()) * (shooter.getHeight()))));
