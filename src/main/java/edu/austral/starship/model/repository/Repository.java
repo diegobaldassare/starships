@@ -1,5 +1,6 @@
 package edu.austral.starship.model.repository;
 
+import edu.austral.starship.controller.ShooterController;
 import edu.austral.starship.model.Entity;
 import edu.austral.starship.model.builder.bullets.Bullet;
 
@@ -32,11 +33,11 @@ public abstract class Repository<K, T extends Entity<K>> {
      * Porque si hago privado el constructor de repository,
      * no puedo tener sublases.
      */
-    private static final Repository<Long, Bullet> INSTANCE = new BulletsRepository();
+//    private static final Repository<Long, Bullet> INSTANCE = new BulletsRepository();
 
-    public static Repository<Long, Bullet> getInstance() {
-        return INSTANCE;
-    }
+//    public static Repository<Long, Bullet> getInstance() {
+//        return INSTANCE;
+//    }
 
     public void create(T entity) {
         entities.put(entity.getId(), entity);
@@ -61,6 +62,8 @@ public abstract class Repository<K, T extends Entity<K>> {
     public List<T> findByPredicate(Predicate<T> predicate) {
         return entities.values().stream().filter(predicate).collect(Collectors.toList());
     }
+
+
 
     //Tratar de no usarlo para desligarlo de la implementación
 //    public Map<K, T> getEntities() {

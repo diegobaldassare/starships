@@ -13,20 +13,20 @@ import edu.austral.starship.model.visitor.Helpful;
  */
 public class Bullet extends GameObject implements Harmful {
 
+    private static final int WIDTH = 10;
+    private static final int HEIGHT = 10;
+
     private int size;
     private int damage;
     private String name;
     private Shooter shooter;
     private Vector2 shotFrom;
 
+    //se deberia sacar
     Bullet() {}
 
-    public Bullet(int life, Vector2 position) {
-        super(life, position);
-    }
-
     public Bullet(Shooter shooter, int life, Vector2 position) {
-        super(life, position);
+        super(WIDTH, HEIGHT, life, position);
         this.shooter = shooter;
     }
 

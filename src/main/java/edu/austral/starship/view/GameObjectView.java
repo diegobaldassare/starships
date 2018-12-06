@@ -7,6 +7,8 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 
 import java.awt.*;
+import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Created by Diego Baldassare on 2018-10-28.
@@ -14,13 +16,12 @@ import java.awt.*;
 public abstract class GameObjectView extends View implements Collisionable<GameObjectView> {
     //<T extends GameObjectView<T>>
 
-
-    protected Shape shape;
+//    protected final Shape shape;
     protected PImage image;
-//    protected final GameObject model;
+//    protected GameObject model;
 
-//    GameObjectView(GameObject model) {
-//        this.model = model;
+//    GameObjectView() {
+//        shape = initShape();
 //    }
 
     public abstract GameObject getModel();
@@ -33,5 +34,27 @@ public abstract class GameObjectView extends View implements Collisionable<GameO
         graphics.imageMode(PConstants.CENTER);
         graphics.image(image, 0, 0);
         graphics.popMatrix();
+    }
+
+    /**
+     * TODO: init shape must be done just once in the constructor.
+     */
+//    @Override
+//    public Shape getShape() {
+//        return initShape();
+//    }
+
+    protected Shape initShape() {
+        final Path2D.Float path = new Path2D.Float();
+        path.append(getRelativeShape(), false);
+        return path;
+    }
+
+    private Shape getRelativeShape() {
+        return new Rectangle2D.Float(
+                getModel().getPosition().getX(),
+                getModel().getPosition().getY(),
+                getModel().getWidth(),
+                getModel().getHeight());
     }
 }

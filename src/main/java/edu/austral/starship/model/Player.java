@@ -45,12 +45,12 @@ public class Player extends Shooter {
     }
 
     @Override
-    public int getWidth() {
+    public float getWidth() {
         return starship.getWidth();
     }
 
     @Override
-    public int getHeight() {
+    public float getHeight() {
         return starship.getHeight();
     }
 
@@ -66,6 +66,10 @@ public class Player extends Shooter {
 
     public int getScore() {
         return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public String getName() {

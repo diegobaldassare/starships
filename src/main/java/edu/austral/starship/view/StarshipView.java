@@ -8,6 +8,7 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Created by Diego Baldassare on 2018-10-25.
@@ -52,6 +53,14 @@ public class StarshipView extends GameObjectView {
     public void collisionedWith(GameObjectView collisionable) {
         collisionable.getModel().accept(model);
     }
+
+//    @Override
+//    protected Shape initShape() {
+//        final Rectangle result =  new Rectangle(WIDTH, HEIGHT);
+//        result.x = (int) model.getPosition().getX();
+//        result.y = (int) model.getPosition().getY();
+//        return result;
+//    }
 
     @Override
     public GameObject getModel() {

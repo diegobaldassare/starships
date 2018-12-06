@@ -8,6 +8,9 @@ import edu.austral.starship.model.visitor.Helpful;
 import edu.austral.starship.model.builder.weapons.LaserWeapon;
 import edu.austral.starship.model.builder.weapons.Weapon;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 /**
  * Created by Diego Baldassare on 25/10/2018.
  */
@@ -16,20 +19,21 @@ public class Starship extends ManageableObject implements Harmful {
     private static final int INITIAL_LIFE = 50;
     private static final int WIDTH = 92;
     private static final int HEIGHT = 81;
+
     private String color;
 
     private Weapon current;
 
-    public Starship() {
-        super(INITIAL_LIFE, Vector2.vector(500, 500));
+    public Starship(Vector2 initialPosition) {
+        super(WIDTH, HEIGHT, INITIAL_LIFE, initialPosition);
         this.current = new LaserWeapon();
         this.setSpeed(5);
+        setDirection(Vector2.vector(0, -1));
     }
 
-    public Starship(Vector2 initialPosition) {
-        super(INITIAL_LIFE, initialPosition);
-        this.current = new LaserWeapon();
-        this.setSpeed(5);
+    //sacar
+    public Starship() {
+        this(Vector2.vector(500, 500));
     }
 
     @Override
@@ -74,17 +78,6 @@ public class Starship extends ManageableObject implements Harmful {
      */
     public void action(Player player) {
         current.shoot(player);
-    }
-
-    @Override
-    public int getWidth() {
-
-        return WIDTH;
-    }
-
-    @Override
-    public int getHeight() {
-        return HEIGHT;
     }
 
     public Weapon getCurrent() {

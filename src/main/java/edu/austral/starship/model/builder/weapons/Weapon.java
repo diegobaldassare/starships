@@ -16,11 +16,11 @@ public abstract class Weapon extends GameObject implements Helpful {
     private int bulletQuantity;
     private long lastReloadTime;
 
-    Weapon() {}
-
-    Weapon(int useLife, Vector2 position) {
-        super(useLife, position);
+    public Weapon(int width, int height, int life, Vector2 position) {
+        super(width, height, life, position);
     }
+
+    Weapon() {}
 
     @Override
     public void setup() {

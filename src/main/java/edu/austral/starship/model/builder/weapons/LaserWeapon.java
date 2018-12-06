@@ -16,11 +16,18 @@ import edu.austral.starship.model.visitor.Helpful;
  */
 public class LaserWeapon extends Weapon {
 
-//    private static final int SIMPLE_WEAPON_USE_LIFE = 10000000; //infinito
-//    private static final Vector2 EVERYWHERE = Vector2.vector(0, 0); //siempre la tiene el starship (no se ve)
+    private static final int WIDTH = 10;
+    private static final int HEIGHT = 10;
+    private static final int USE_LIFE = 10000000; //infinito
+    private static final Vector2 EVERYWHERE = Vector2.vector(0, 0); //siempre la tiene el starship (no se ve)
+
+    public LaserWeapon() {
+        super(WIDTH, HEIGHT, USE_LIFE, EVERYWHERE);
+    }
 
     @Override
     public void shoot(Shooter shooter) {
+
 //        shooter.getBullets().add(new Bullet(shooter, 60, Vector2.vector(34, 34)));
         final BulletBuilder bulletBuilder = new LaserBulletBuilder();
         bulletBuilder.construct();

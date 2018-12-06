@@ -1,8 +1,10 @@
 package edu.austral.starship.controller;
 
+import edu.austral.starship.model.Game;
 import edu.austral.starship.model.builder.asteroids.Asteroid;
+import edu.austral.starship.model.state.LevelZero;
+import edu.austral.starship.view.GameView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,4 +12,18 @@ import java.util.List;
  */
 public class LevelController {
 
+    private final Game model;
+    private final GameView view;
+
+    LevelController(Game model, GameView view) {
+        this.model = model;
+        this.view = view;
+        model.setLevel(new LevelZero(model, this));
+//        model.getLevel().addObserver(this);
+    }
+
+    public void updateAsteroids(List<Asteroid> asteroids) {
+        model.getAsteroids().addAll(asteroids);
+        view.createAsteroids(asteroids);
+    }
 }

@@ -24,6 +24,6 @@ public abstract class Shooter extends Model {
 
     public abstract Vector2 getPosition();
     public abstract Vector2 getDirection();
-    public abstract int getWidth();
-    public abstract int getHeight();
+    public abstract float getWidth();
+    public abstract float getHeight();
 }

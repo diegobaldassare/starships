@@ -1,6 +1,7 @@
 package edu.austral.starship.utils;
 
 import edu.austral.starship.base.vector.Vector2;
+import edu.austral.starship.model.Game;
 import edu.austral.starship.model.GameObject;
 import edu.austral.starship.model.Player;
 import edu.austral.starship.model.builder.bullets.Bullet;
@@ -10,21 +11,34 @@ import java.util.List;
 /**
  * Created by Diego Baldassare on 2018-11-01.
  */
-public class MapInitializer {
+public class Map {
 
     //Hardcoded values
     private static final int MAP_WIDTH = 1680;
     private static final int MAP_HEIGHT= 1050;
 
     public static void checkBoundaries(List<GameObject> gameObjects) {
-        for (GameObject o : gameObjects) {
-            if (o instanceof Bullet) return;
-            if (o.getPosition().getX() > MAP_WIDTH) o.setPosition(Vector2.vector(0, o.getPosition().getY()));
-            if (o.getPosition().getY() > MAP_HEIGHT) o.setPosition(Vector2.vector(o.getPosition().getX(), 0));
-            if (o.getPosition().getX() < 0) o.setPosition(Vector2.vector(MAP_WIDTH, o.getPosition().getY()));
-            if (o.getPosition().getY() < 0) o.setPosition(Vector2.vector(o.getPosition().getX(), MAP_HEIGHT));
+        for (GameObject o: gameObjects) {
+            if (o.getPosition().getX() > MAP_WIDTH) {
+                if (o instanceof Bullet) o.setLife(0);
+                o.setPosition(Vector2.vector(0, o.getPosition().getY()));
+            }
+            if (o.getPosition().getY() > MAP_HEIGHT) {
+                if (o instanceof Bullet) o.setLife(0);
+                o.setPosition(Vector2.vector(o.getPosition().getX(), 0));
+            }
+            if (o.getPosition().getX() < 0) {
+                if (o instanceof Bullet) o.setLife(0);
+                o.setPosition(Vector2.vector(MAP_WIDTH, o.getPosition().getY()));
+            }
+            if (o.getPosition().getY() < 0) {
+                if (o instanceof Bullet) o.setLife(0);
+                o.setPosition(Vector2.vector(o.getPosition().getX(), MAP_HEIGHT));
+            }
         }
     }
+
+
 
     /**
      * Generates n asteroids that appear from the border of the screen randomly but evenly spread.

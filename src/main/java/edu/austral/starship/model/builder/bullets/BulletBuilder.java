@@ -1,8 +1,8 @@
 package edu.austral.starship.model.builder.bullets;
 
 import edu.austral.starship.base.vector.Vector2;
+import edu.austral.starship.controller.ShooterController;
 import edu.austral.starship.model.Shooter;
-import edu.austral.starship.model.repository.BulletsRepository;
 
 /**
  * Builder Pattern optimized.
@@ -21,7 +21,7 @@ public abstract class BulletBuilder {
 
     public void construct() {
         bullet = new Bullet();
-        BulletsRepository.getInstance().create(bullet);
+        ShooterController.getInstance().createBullet(bullet);
     }
 
     /**
@@ -43,8 +43,8 @@ public abstract class BulletBuilder {
 
     public void assignShooter(Shooter shooter) {
         bullet.setPosition(shooter.getPosition().add(Vector2.vector(
-                (float) Math.cos(shooter.getDirection().angle()) * (shooter.getWidth() + 1),
-                (float) Math.sin(shooter.getDirection().angle()) * (shooter.getHeight() + 1))));
+                (float) Math.cos(shooter.getDirection().angle()) * (shooter.getWidth()),
+                (float) Math.sin(shooter.getDirection().angle()) * (shooter.getHeight()))));
         bullet.setShotFrom(shooter.getPosition());
         bullet.setDirection(shooter.getDirection());
     }

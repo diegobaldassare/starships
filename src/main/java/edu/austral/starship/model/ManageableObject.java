@@ -7,20 +7,9 @@ import edu.austral.starship.base.vector.Vector2;
  */
 public abstract class ManageableObject extends GameObject {
 
-    ManageableObject(int life, Vector2 position) {
-        super(life, position);
+    ManageableObject(int width, int height, int life, Vector2 position) {
+        super(width, height, life, position);
     }
-//    public abstract void move(Vector2 direction);
-//    public abstract void accelerate();
-//    public abstract void rotate(Vector2 direction);
+
     public abstract void action(Player player);
-
-//    public abstract void moveUp();
-//    public abstract void moveDown();
-//    public abstract void rotateRight();
-//    public abstract void rotateLeft();
-
-    public abstract int getWidth();
-    public abstract int getHeight();
-
 }

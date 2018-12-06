@@ -1,6 +1,7 @@
 package edu.austral.starship.view;
 
 import edu.austral.starship.base.framework.ImageLoader;
+import edu.austral.starship.model.GameObject;
 import processing.core.PGraphics;
 
 /**

@@ -1,5 +1,6 @@
 package edu.austral.starship.view;
 
+import edu.austral.starship.base.collision.CollisionEngine;
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.utils.Constants;
 import edu.austral.starship.model.*;
@@ -43,9 +44,9 @@ public class GameView extends View{
             i++;
         }
 
-        for (Asteroid a: model.getAsteroids()) {
-            gameObjectViews.add(new AsteroidView(a, "brown"));
-        }
+//        for (Asteroid a: model.getAsteroids()) {
+//            gameObjectViews.add(new AsteroidView(a, "brown"));
+//        }
 
 
         for (GameObjectView v : gameObjectViews) {
@@ -56,7 +57,9 @@ public class GameView extends View{
     @Override
     public void draw(PGraphics graphics) {
         if (model.isEnded()) {
-            printStatistics(graphics);
+            printGameOver(graphics);
+            printWinner(graphics);
+//            printStatistics(graphics);
             return;
         }
         if (model.isPaused()) {
@@ -66,23 +69,23 @@ public class GameView extends View{
         backgroundImage.resize(graphics.width, graphics.height);
         graphics.background(backgroundImage);
 
+        final CollisionEngine collisionEngine = new CollisionEngine();
+        // noinspection unchecked
+        collisionEngine.checkCollisions(gameObjectViews);
 
-        //agregar la vista de asteroides nuevos
-        for (Asteroid a: model.getNewAsteroids()) {
-            gameObjectViews.add(new AsteroidView(a, "brown", asteroidImage));
-        }
-        model.getNewAsteroids().clear();
+        //sacar objetos muertos
+        gameObjectViews.removeIf(v -> v.getModel().getLife() <= 0);  //estaria repitiendo la logica del modelo
 
-        for (Bullet b: model.getNewBullets()) {
-            gameObjectViews.add(new BulletView(b, "laser", laserImage));
-        }
-        model.getNewBullets().clear();
+        //actualizar la vista
+        gameObjectViews.forEach(v -> v.draw(graphics));
+    }
 
+    public void createAsteroids(final List<Asteroid> asteroids) {
+        asteroids.forEach(a -> { gameObjectViews.add(new AsteroidView(a, "brown", asteroidImage)); });
+    }
 
-        gameObjectViews.removeIf(v -> !model.getGameObjects().contains(v.getModel()));
-        for (GameObjectView v: gameObjectViews) {
-            v.draw(graphics);
-        }
+    public void createBullet(final Bullet bullet) {
+        gameObjectViews.add(new BulletView(bullet, "laser", laserImage));
     }
 
     private void printPaused(PGraphics graphics) {
@@ -157,13 +160,10 @@ public class GameView extends View{
 
     private void printStatistics(PGraphics graphics) {
         final float x = (float) Constants.MAP_WIDTH / 2;
-        final float y = (float) Constants.MAP_HEIGHT / 2;
+        final float y = (float) Constants.MAP_HEIGHT / 2 + 50;
 
         graphics.fill(Color.GREEN.getRGB());
         graphics.textAlign(PConstants.CENTER);
-
-        graphics.textSize(150);
-        graphics.text("GAME OVER", x, y);
 
         graphics.textSize(30);
         graphics.text("Player     Score", x, y + 100);
@@ -179,6 +179,41 @@ public class GameView extends View{
         }
 
         graphics.noFill();
+    }
+
+    private void printGameOver(PGraphics graphics) {
+        final float x = (float) Constants.MAP_WIDTH / 2;
+        final float y = (float) Constants.MAP_HEIGHT / 2 - 100;
+
+        graphics.fill(Color.GREEN.getRGB());
+        graphics.textAlign(PConstants.CENTER);
+
+        graphics.textSize(150);
+        graphics.text("GAME OVER", x, y);
+    }
+
+    private void printWinner(PGraphics graphics) {
+        final float x = (float) Constants.MAP_WIDTH / 2;
+        final float y = (float) Constants.MAP_HEIGHT / 2;
+
+        graphics.fill(Color.GREEN.getRGB());
+        graphics.textAlign(PConstants.CENTER);
+
+        graphics.textSize(50);
+
+        //multiplayer
+        if (model.getPlayers().size() > 1) {
+            model.getPlayers().forEach(p -> {
+                if(((Starship) p.getManageableObject()).getColor().equals(model.getStarships().get(0).getColor()))
+                    graphics.text(p.getName() + " win!", x, y);
+            });
+        }
+
+        //single player
+        else {
+            if (model.getAsteroids().isEmpty()) graphics.text("You win!", x, y);
+            else                                graphics.text("You lost.", x, y);
+        }
     }
 
     public List<GameObjectView> getGameObjectViews() {

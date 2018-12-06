@@ -1,12 +1,9 @@
 package edu.austral.starship.model;
 
-import edu.austral.starship.model.strategy.LevelThree;
-import edu.austral.starship.utils.MapInitializer;
 import edu.austral.starship.model.builder.asteroids.Asteroid;
 import edu.austral.starship.model.builder.bullets.Bullet;
-import edu.austral.starship.model.repository.BulletsRepository;
-import edu.austral.starship.model.strategy.Level;
-import edu.austral.starship.model.strategy.LevelOne;
+import edu.austral.starship.utils.Map;
+import edu.austral.starship.model.state.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,54 +19,39 @@ public class Game extends Model {
     private boolean paused;
     private Level level;
     private final List<Player> players = new ArrayList<>();
-    private final List<GameObject> gameObjects = new ArrayList<>();
+//    private final List<GameObject> gameObjects = new ArrayList<>();
+    private final List<Starship> starships = new ArrayList<>();
     private final List<Asteroid> asteroids = new ArrayList<>();
-    private final List<Asteroid> newAsteroids = new ArrayList<>();
-    private final List<Bullet> newBullets = new ArrayList<>();
-    private static Game instance = null;
-
-    public Game() {
-        this.instance = this;
-        this.paused = false;
-        this.level = new LevelOne(this);
-        asteroids.addAll(newAsteroids);
-        newAsteroids.clear();
-    }
-
-    public static Game getInstance() {
-        return instance;
-    }
+    private final List<Bullet> bullets = new ArrayList<>();
 
     @Override
     public void setup() {
-        MapInitializer.setInitialPositions(players);
-        for (Player player : players) {
-            gameObjects.add(player.getManageableObject());
-        }
-        gameObjects.addAll(asteroids);
+        Map.setInitialPositions(players);
 
+        for (Player player : players) {
+            starships.add((Starship) player.getManageableObject());    // cambiar
+        }
     }
 
     @Override
     public void update(float timeSinceLastDraw) {
         if (paused) return;
-        if (asteroids.isEmpty()) {
-            level.next();
-            asteroids.addAll(newAsteroids);
-            gameObjects.addAll(newAsteroids);
-        }
-//        if (starships.isEmpty()) end();
+        if (asteroids.isEmpty()) level.next();
+        if (starships.isEmpty()) end();
 
-        newBullets.addAll(BulletsRepository.getInstance().read());
-        gameObjects.addAll(newBullets);
-
-        gameObjects.removeIf(o -> o.getLife() <= 0);
+        // Remove reference from dead entities.
+        // Garbage Collector will be in charge of deleting it.
+        starships.removeIf(o -> o.getLife() <= 0);
         asteroids.removeIf(o -> o.getLife() <= 0);
-        for (GameObject o : gameObjects) {
-            o.update(timeSinceLastDraw);
-        }
+        bullets.removeIf(o -> o.getLife() <= 0);
 
-        MapInitializer.checkBoundaries(gameObjects);
+        final List<GameObject> gameObjects = new ArrayList<>();
+        gameObjects.addAll(starships);
+        gameObjects.addAll(asteroids);
+        gameObjects.addAll(bullets);
+
+        gameObjects.forEach(o -> o.update(timeSinceLastDraw));
+        Map.checkBoundaries(gameObjects);
     }
 
     public boolean isEnded() {
@@ -100,27 +82,20 @@ public class Game extends Model {
         return players;
     }
 
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
-    }
+//    public List<GameObject> getGameObjects() {
+//        return gameObjects;
+//    }
 
-    public List<Starship> getStarships() {
-        final List<Starship> result = new ArrayList<>();
-        for (Player p : players) {
-            result.add((Starship) p.getManageableObject());
-        }
-        return result;
-    }
 
     public List<Asteroid> getAsteroids() {
         return asteroids;
     }
 
-    public List<Asteroid> getNewAsteroids() {
-        return newAsteroids;
+    public List<Starship> getStarships() {
+        return starships;
     }
 
-    public List<Bullet> getNewBullets() {
-        return newBullets;
+    public List<Bullet> getBullets() {
+        return bullets;
     }
 }

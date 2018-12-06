@@ -13,16 +13,14 @@ import edu.austral.starship.model.visitor.Helpful;
 public class Asteroid extends GameObject implements Harmful {
 
     private static final int RADIUS_RELATION = 25;
-    private int width;
-    private int height;
     private int damage;
 
-    Asteroid() {}
-
-    Asteroid(int life, Vector2 position, Vector2 direction) {
-        super(life, position);
-        setDirection(direction);
+    public Asteroid(int width, int height, int life, Vector2 position, int damage) {
+        super(width, height, life, position);
+        this.damage = damage;
     }
+
+    Asteroid() { }
 
     @Override
     public void setup() {
@@ -59,21 +57,13 @@ public class Asteroid extends GameObject implements Harmful {
         //Nothing can be done here.
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public int getDamage() {
         return damage;
     }
 
     public void setRadius(int radius) {
-        this.width = radius * RADIUS_RELATION;
-        this.height = radius * RADIUS_RELATION;
+        super.width = radius * RADIUS_RELATION;
+        super.height = radius * RADIUS_RELATION;
     }
 
     public void setDamage(int damage) {

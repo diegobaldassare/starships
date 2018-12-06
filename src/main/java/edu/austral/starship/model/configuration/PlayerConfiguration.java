@@ -18,11 +18,13 @@ public class PlayerConfiguration {
         final Player player4 = new Player("Pedro");
         final Player player5 = new Player("Pato");
 
+
         player1.setManageableObject(new Starship());
         player2.setManageableObject(new Starship());
         player3.setManageableObject(new Starship());
         player4.setManageableObject(new Starship());
         player5.setManageableObject(new Starship());
+        player1.setScore(102);
 
         gameController.getModel().getPlayers().add(player1);
         if (quantity > 2) {
